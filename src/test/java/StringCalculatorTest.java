@@ -31,4 +31,18 @@ public class StringCalculatorTest {
         assertEquals(calculator.add("123, 7, 3, 6"), 139);
         assertEquals(calculator.add("5098, 2000, 1000, 4000"), 12098);
     }
+
+    @Test
+    void calculatorShouldReturnProperSumForNumbersSeparatedWithNewLinesAndCommas() {
+        assertEquals(calculator.add("5\n7, 10"), 22);
+        assertEquals(calculator.add("123\n7\n3\n6"), 139);
+        assertEquals(calculator.add("5098, 2000, 1000\n4000"), 12098);
+    }
+
+    @Test
+    void calculatorShouldSupportSettingDelimiters() {
+        assertEquals(calculator.add("//;\n1;2"), 3);
+        assertEquals(calculator.add("//test\n1test4"), 5);
+        assertEquals(calculator.add("//--\n1--7"), 8);
+    }
 }
