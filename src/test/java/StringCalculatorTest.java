@@ -24,4 +24,11 @@ public class StringCalculatorTest {
         assertEquals(calculator.add("123, 7"), 130);
         assertEquals(calculator.add("5098, 2000"), 7098);
     }
+
+    @Test
+    void calculatorShouldReturnSumOfSeveralNumbers() {
+        assertEquals(calculator.add("5, 7, 10"), 22);
+        assertEquals(calculator.add("123, 7, 3, 6"), 139);
+        assertEquals(calculator.add("5098, 2000, 1000, 4000"), 12098);
+    }
 }
