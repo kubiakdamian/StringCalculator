@@ -4,7 +4,7 @@ import pl.qbsapps.exception.NegativesNotAllowedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StringCalculatorTest {
+class StringCalculatorTest {
     private Calculator calculator = new Calculator();
 
     @Test
@@ -68,5 +68,12 @@ public class StringCalculatorTest {
         assertEquals(calculator.add("5, 7, 1001"), 12);
         assertEquals(calculator.add("123, 7, 3, 6096"), 133);
         assertEquals(calculator.add("5098, 2000, 1000, 4000"), 1000);
+    }
+
+    @Test
+    void shouldSupportMultipleDelimiters() {
+        assertEquals(calculator.add("//[#][%]\n1#2%3"), 6);
+        assertEquals(calculator.add("//[###][%,,]\n1###2%,,3"), 6);
+        assertEquals(calculator.add("//[tests][work]\n1tests2work3"), 6);
     }
 }

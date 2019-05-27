@@ -10,6 +10,8 @@ public class Calculator {
         int sum = 0;
         String[] result;
         ArrayList<Integer> negativeNumbers = new ArrayList<>();
+        String delimiters[];
+        StringBuilder stringBuilder = new StringBuilder();
 
         if (numbers == null || numbers.isEmpty()) {
             return 0;
@@ -17,7 +19,20 @@ public class Calculator {
 
         if (numbers.startsWith("//")) {
             String delimiter = StringUtils.substringBetween(numbers, "//", "\n");
+
+            if(delimiter.contains("[")){
+                delimiters = StringUtils.substringsBetween(numbers, "[", "]");
+
+                for(String s : delimiters) {
+                    stringBuilder.append(s).append("|");
+                }
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+
+                delimiter = stringBuilder.toString();
+            }
+
             numbers = numbers.substring(numbers.lastIndexOf("\n") + 1);
+
             result = numbers.split(delimiter);
         } else {
             result = numbers.split("[,\n]");
