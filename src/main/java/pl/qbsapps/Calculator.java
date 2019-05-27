@@ -34,10 +34,13 @@ public class Calculator {
 
         for (String value : result) {
             int parsedValue = Integer.parseInt(value);
-            sum += parsedValue;
 
             if (parsedValue < 0) {
                 negativeNumbers.add(parsedValue);
+            }
+
+            if (parsedValue <= 1000) {
+                sum += parsedValue;
             }
         }
 

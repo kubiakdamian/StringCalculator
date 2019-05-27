@@ -2,9 +2,7 @@ import org.junit.jupiter.api.Test;
 import pl.qbsapps.Calculator;
 import pl.qbsapps.exception.NegativesNotAllowedException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringCalculatorTest {
     private Calculator calculator = new Calculator();
@@ -25,21 +23,21 @@ public class StringCalculatorTest {
     void shouldReturnSumOfTwoNumbers() {
         assertEquals(calculator.add("5, 7"), 12);
         assertEquals(calculator.add("123, 7"), 130);
-        assertEquals(calculator.add("5098, 2000"), 7098);
+        assertEquals(calculator.add("509, 200"), 709);
     }
 
     @Test
     void shouldReturnSumOfSeveralNumbers() {
         assertEquals(calculator.add("5, 7, 10"), 22);
         assertEquals(calculator.add("123, 7, 3, 6"), 139);
-        assertEquals(calculator.add("5098, 2000, 1000, 4000"), 12098);
+        assertEquals(calculator.add("509, 200, 100, 400"), 1209);
     }
 
     @Test
     void shouldReturnProperSumForNumbersSeparatedWithNewLinesAndCommas() {
         assertEquals(calculator.add("5\n7, 10"), 22);
         assertEquals(calculator.add("123\n7\n3\n6"), 139);
-        assertEquals(calculator.add("5098, 2000, 1000\n4000"), 12098);
+        assertEquals(calculator.add("509, 200, 100\n400"), 1209);
     }
 
     @Test
@@ -63,5 +61,12 @@ public class StringCalculatorTest {
 
         negativesNotAllowedException = assertThrows(NegativesNotAllowedException.class, () -> calculator.add("-1, -2, -3"));
         assertTrue(negativesNotAllowedException.getMessage().contains("Negatives not allowed [-1, -2, -3]"));
+    }
+
+    @Test
+    void numbersBiggerThan1000ShouldBeIgnored() {
+        assertEquals(calculator.add("5, 7, 1001"), 12);
+        assertEquals(calculator.add("123, 7, 3, 6096"), 133);
+        assertEquals(calculator.add("5098, 2000, 1000, 4000"), 1000);
     }
 }
